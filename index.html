@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>موسوعة ديوان قطاع الشباب والرياضة للإنفوغرافيك المهني</title>
+<meta name="description" content="المرجع البصري للعاملين بقطاع الشباب والرياضة — 281 صفحة إنفوغرافيك تعمل دون اتصال بالإنترنت.">
+<meta name="theme-color" content="#0d2150">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+
+<!-- ═════════ الشريط العلوي ═════════ -->
+<header class="top" id="top">
+  <a class="brand" href="#/" aria-label="الصفحة الرئيسية">
+    <img src="assets/logo.png" alt="" width="40" height="40">
+    <span class="brand-t"><b>موسوعة الإنفوغرافيك المهني</b><small>ديوان قطاع الشباب والرياضة</small></span>
+  </a>
+  <nav class="tabs" aria-label="التنقل الرئيسي">
+    <a href="#/" data-nav="home">الرئيسية</a>
+    <a href="#/toc" data-nav="toc">الفهرس</a>
+    <a href="#/paths" data-nav="paths">المسارات</a>
+    <a href="#/tools" data-nav="tools">الأدوات</a>
+    <a href="#/glossary" data-nav="glossary">القاموس</a>
+    <a href="#/training" data-nav="training">التكوين</a>
+    <a href="#/gallery" data-nav="gallery">المعرض</a>
+    <a href="#/mine" data-nav="mine">مكتبتي <span class="cnt" id="favCount" hidden>0</span></a>
+  </nav>
+  <div class="top-tools">
+    <button class="ico" id="btnFont" title="حجم الخط" aria-label="تغيير حجم الخط"><span class="aa">Aأ</span></button>
+    <button class="ico" id="btnPack" title="طباعة أو تصدير صفحات (PDF)" aria-label="طباعة أو تصدير صفحات">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V4h10v5M7 17H5v-6h14v6h-2M7 14h10v6H7z"/></svg>
+    </button>
+    <button class="ico" id="btnTheme" title="تبديل المظهر (فاتح / داكن)" aria-label="تبديل المظهر">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+    <a class="ico" href="#/about" title="حول الموسوعة" aria-label="حول الموسوعة" id="btnAbout">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6h.01"/></svg>
+    </a>
+    <button class="ico" id="btnHelp" title="اختصارات وإرشادات (؟)" aria-label="المساعدة">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.2c-.8.5-1.2 1-1.2 1.9M12 16.8h.01"/></svg>
+    </button>
+  </div>
+  </header>
+
+<main id="main">
+
+  <!-- ═════════ الرئيسية ═════════ -->
+  <section id="view-home" class="view" hidden>
+    <div class="hero">
+      <div class="hero-txt">
+        <p class="kicker">المرجع البصري للعاملين بقطاع الشباب والرياضة</p>
+        <h1>موسوعة ديوان قطاع الشباب والرياضة <span class="h1-big">للإنفوغرافيك المهني</span></h1>
+        <p class="lead">مرجع بصري مهني لتطوير الممارسة داخل مؤسسات الشباب والتنشيط الاجتماعي التربوي، في أربع سلاسل و281 صفحة.</p>
+        <div class="cta">
+          <a class="btn primary" id="ctaResume" href="#/p/1">ابدأ القراءة</a>
+          <a class="btn" href="#/toc">تصفّح الفهرس</a>
+          <a class="btn" href="#/gallery">معرض الصفحات</a>
+        </div>
+        <p class="offline">تعمل الموسوعة دون اتصال بالإنترنت، وتحفظ آخر صفحة قرأتها ومفضلتك على هذا الجهاز.</p>
+      </div>
+      <a class="hero-cover" href="#/p/1" aria-label="افتح غلاف الموسوعة">
+        <img src="pages/001.webp" alt="غلاف موسوعة ديوان قطاع الشباب والرياضة للإنفوغرافيك المهني" width="924" height="1316">
+      </a>
+    </div>
+
+    <div class="wrap">
+      <a class="potd" id="potd" href="#/p/1">
+        <img id="potdImg" loading="lazy" src="thumbs/001.jpg" alt="">
+        <div class="potd-b"><span class="potd-tag">صفحة اليوم</span><b id="potdTitle"></b><small id="potdSub"></small></div>
+      </a>
+
+      <div class="quick" id="quick" aria-label="وصول سريع"></div>
+
+      <div class="strip" id="stripResume" hidden>
+        <h2>آخر ما قرأت</h2>
+        <div class="strip-row" id="stripResumeRow"></div>
+      </div>
+
+      <div class="sec-h"><h2>ابدأ حسب دورك</h2><a href="#/paths">كل المسارات</a></div>
+      <div class="paths-mini" id="pathsMini"></div>
+
+      <div class="feat3">
+        <a class="feat" href="#/tools"><b>الأدوات التفاعلية</b><span>SWOT وشجرة المشكلات وSMART والإطار المنطقي وغانت وبطاقة المشروع — تُملأ وتُطبع مباشرة</span></a>
+        <a class="feat" href="#/glossary"><b>قاموس المصطلحات</b><span>أكثر من 55 مصطلحاً مهنياً بشرح مبسّط وربط بصفحات الموسوعة</span></a>
+        <a class="feat" href="#/training"><b>حقيبة التكوين</b><span>خطط جلسات جاهزة واختبارات قصيرة ومراجع قانونية للتكوين والورشات</span></a>
+      </div>
+
+      <div class="sec-h"><h2>تصفّح حسب الموضوع</h2><span>ثلاثة عشر موضوعاً وأكثر</span></div>
+      <div class="chips" id="topicChips"></div>
+
+      <div class="sec-h"><h2>السلاسل الأربع</h2><span>اضغط على الغلاف لفتح السلسلة</span></div>
+      <div class="series" id="seriesGrid"></div>
+
+      <div class="strip" id="stripFav" hidden>
+        <div class="sec-h"><h2>مفضلتي</h2><a href="#/mine">مكتبتي</a></div>
+        <div class="strip-row" id="stripFavRow"></div>
+      </div>
+
+      <footer class="foot">
+        <img src="assets/logo.png" alt="" width="56" height="56">
+        <p>ديوان قطاع الشباب والرياضة — <em>نبني صرح الفكر، نرتقي بعقولهم</em></p>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ═════════ الفهرس ═════════ -->
+  <section id="view-toc" class="view" hidden>
+    <div class="wrap narrow">
+      <div class="page-h">
+        <h1>الفهرس العام</h1>
+        <p>ابحث بعنوان الصفحة أو بموضوعها أو برقمها، أو تنقّل بين السلاسل والمحاور.</p>
+      </div>
+      <div class="searchbar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="ابحث في الفهرس… مثال: SWOT، المنشط، 45" autocomplete="off" aria-label="بحث في الفهرس">
+        <button class="clear" id="qClear" hidden aria-label="مسح البحث">×</button>
+      </div>
+      <div class="toc-tools" id="tocTools">
+        <button class="link" id="btnExpand">فتح الكل</button>
+        <button class="link" id="btnCollapse">طيّ الكل</button>
+      </div>
+      <div id="tocRoot" class="toc"></div>
+      <div id="tocResults" class="results" hidden></div>
+    </div>
+  </section>
+
+  <!-- ═════════ المعرض ═════════ -->
+  <section id="view-gallery" class="view" hidden>
+    <div class="wrap">
+      <div class="page-h">
+        <h1 id="galTitle">معرض الصفحات</h1>
+        <p id="galSub">كل صفحات الموسوعة مصغّرة، اضغط على أي صفحة لفتحها.</p>
+      </div>
+      <div class="chips" id="chips" role="tablist" aria-label="تصفية حسب السلسلة"></div>
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="galEmpty" hidden></p>
+    </div>
+  </section>
+
+  <!-- ═════════ المسارات ═════════ -->
+  <section id="view-paths" class="view" hidden>
+    <div class="wrap narrow">
+      <div class="page-h">
+        <h1>مسارات القراءة</h1>
+        <p>اختر دورك، فيرتّب لك البرنامج الصفحات الأهم بالتسلسل المناسب. تُحفظ نسبة تقدّمك في كل مسار.</p>
+      </div>
+      <div id="pathsList" class="paths"></div>
+    </div>
+  </section>
+
+  <!-- ═════════ مكتبتي ═════════ -->
+  <section id="view-mine" class="view" hidden>
+    <div class="wrap">
+      <div class="page-h">
+        <h1>مكتبتي</h1>
+        <p>مفضلتك وملاحظاتك على الصفحات. تُحفظ على هذا الجهاز فقط، ويمكنك نسخها احتياطياً واستعادتها في جهاز آخر.</p>
+      </div>
+
+      <div class="sec-h"><h2>المفضلة <small id="mineFavN"></small></h2><button class="link" id="mineFavPrint">طباعة المفضلة / حفظ PDF</button></div>
+      <div class="grid" id="mineFavGrid"></div>
+      <p class="empty" id="mineFavEmpty" hidden>لم تضف أي صفحة إلى المفضلة بعد. افتح صفحة واضغط على النجمة (B).</p>
+
+      <div class="sec-h"><h2>ملاحظاتي <small id="mineNoteN"></small></h2><button class="link" id="mineNoteExport">تصدير الملاحظات (ملف نصي)</button></div>
+      <div class="notes-list" id="mineNotes"></div>
+      <p class="empty" id="mineNotesEmpty" hidden>لا ملاحظات بعد. داخل أي صفحة افتح الدرج الجانبي (C) واختر «ملاحظاتي».</p>
+
+      <div class="sec-h"><h2>نسخة احتياطية</h2></div>
+      <div class="backup">
+        <p>احفظ المفضلة والملاحظات وتقدّم المسارات في ملف، ثم استعده على جهاز آخر أو بعد تنظيف المتصفح.</p>
+        <div class="cta">
+          <button class="btn" id="bkExport">تنزيل نسخة احتياطية</button>
+          <label class="btn" for="bkImport">استعادة من ملف</label>
+          <input type="file" id="bkImport" accept="application/json,.json" hidden>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ حول الموسوعة ═════════ -->
+  <section id="view-about" class="view" hidden>
+    <div class="wrap narrow about">
+      <div class="about-head">
+        <img src="assets/logo.png" alt="" width="120" height="120">
+        <div>
+          <h1>حول الموسوعة</h1>
+          <p class="lead">المرجع البصري للعاملين بقطاع الشباب والرياضة — ديوان قطاع الشباب والرياضة.</p>
+        </div>
+      </div>
+      <div class="about-grid" id="aboutStats"></div>
+      <h2>ما هذه الموسوعة؟</h2>
+      <p>مرجع بصري مهني لتطوير الممارسة داخل مؤسسات الشباب والتنشيط الاجتماعي التربوي، في أربع سلاسل: الإطار القانوني والتنظيمي، والبرنامج التربوي وهندسة المشاريع، والنوادي التربوية، والتنشيط الاجتماعي التربوي.</p>
+      <h2>كيف أستفيد منها؟</h2>
+      <ul class="about-list">
+        <li><b>المسارات:</b> اختر دورك (منشط، مدير، مفتش…) واقرأ الصفحات الأهم بالترتيب.</li>
+        <li><b>البحث والفهرس:</b> ابحث بعنوان الصفحة أو موضوعها أو برقمها.</li>
+        <li><b>المواضيع:</b> تصفّح الصفحات عبر مواضيع مشتركة تعبر السلاسل الأربع.</li>
+        <li><b>مكتبتي:</b> احفظ المفضلة وسجّل ملاحظاتك على أي صفحة.</li>
+        <li><b>الطباعة:</b> اختر صفحات (مثلاً «20-31, 45») واطبعها أو احفظها ملف PDF لتوزيعها في ورشة أو اجتماع.</li>
+      </ul>
+      <h2>وضوح الصفحات والدقة العالية</h2>
+      <p>الصفحات في هذا البرنامج نسخ محسّنة بدقة مضاعفة لتظهر أنقى عند التكبير. إن توفرت لديك الصور الأصلية بدقة أعلى، ضعها في مجلد <b>hd</b> بجانب index.html بالأسماء 001 … 281 (jpg أو png أو webp)، فيستعملها البرنامج تلقائياً دون أي تعديل.</p>
+      <h2>التثبيت والاستخدام دون إنترنت</h2>
+      <p>يعمل البرنامج مباشرة من الملف <b>index.html</b> دون اتصال. وإذا نُشر على موقع، يمكن تثبيته من المتصفح كتطبيق على الهاتف أو الحاسوب.</p>
+      <div id="offlineBox" hidden>
+        <h2>حفظ كل الصفحات على جهازك</h2>
+        <p>يحمّل هذا الزر الصفحات الـ 281 مرة واحدة ليعمل البرنامج بعدها دون إنترنت حتى بعد إغلاق المتصفح.</p>
+        <div class="cta"><button class="btn" id="btnCacheAll">حفظ الصفحات للاستخدام دون إنترنت</button><span id="cacheState" class="pack-sum"></span></div>
+      </div>
+      <p class="about-foot"><em>نبني صرح الفكر، نرتقي بعقولهم</em></p>
+    </div>
+  </section>
+
+  <!-- ═════════ الأدوات التفاعلية ═════════ -->
+  <section id="view-tools" class="view" hidden>
+    <div class="wrap narrow">
+      <div class="page-h">
+        <h1>الأدوات التفاعلية</h1>
+        <p>نماذج قابلة للتعبئة مبنية على أدوات الموسوعة الفعلية. تُحفظ تعبئتك تلقائياً على هذا الجهاز، وتقدر تطبعها أو تصدّرها نصياً في أي وقت.</p>
+      </div>
+      <div id="toolsList" class="tools-grid"></div>
+    </div>
+  </section>
+
+  <section id="view-tool" class="view" hidden>
+    <div class="wrap narrow">
+      <div class="page-h tool-h">
+        <div><a class="back-link" href="#/tools">‹ كل الأدوات</a><h1 id="toolTitle"></h1><p id="toolDesc"></p></div>
+        <a class="btn" id="toolPageLink" href="#/p/1">فتح صفحة الشرح <span id="toolPageNum"></span></a>
+      </div>
+      <div id="toolForm" class="tool-form"></div>
+      <div class="tool-acts">
+        <button class="btn primary" id="toolPrint">طباعة / حفظ PDF</button>
+        <button class="btn" id="toolExport">تصدير نصي</button>
+        <button class="link danger" id="toolClear">مسح كل الحقول</button>
+        <span class="pack-sum" id="toolSaved"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ القاموس ═════════ -->
+  <section id="view-glossary" class="view" hidden>
+    <div class="wrap narrow">
+      <div class="page-h">
+        <h1>قاموس المصطلحات المهنية</h1>
+        <p>شرح توضيحي عام لمفاهيم متداولة في العمل الشبابي والتنشيط التربوي، وليس نصاً رسمياً عن الديوان.</p>
+      </div>
+      <div class="searchbar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="gq" type="search" placeholder="ابحث عن مصطلح… مثال: SMART، الإطار المنطقي" autocomplete="off">
+      </div>
+      <div id="glossList" class="gloss-list"></div>
+    </div>
+  </section>
+
+  <!-- ═════════ حقيبة التكوين ═════════ -->
+  <section id="view-training" class="view" hidden>
+    <div class="wrap narrow">
+      <div class="page-h">
+        <h1>حقيبة التكوين</h1>
+        <p>مواد مقترحة من إعدادنا لاستعمال الموسوعة في ورشات التكوين، وليست برنامجاً رسمياً معتمداً.</p>
+      </div>
+      <div class="chips" id="trainTabs" role="tablist">
+        <button class="chip" data-t="sessions" aria-selected="true">خطط الجلسات</button>
+        <button class="chip" data-t="quiz" aria-selected="false">الاختبارات القصيرة</button>
+        <button class="chip" data-t="legal" aria-selected="false">المراجع القانونية</button>
+      </div>
+      <div id="paneSessions"></div>
+      <div id="paneQuiz" hidden></div>
+      <div id="paneLegal" hidden></div>
+    </div>
+  </section>
+</main>
+
+<!-- ═════════ القارئ ═════════ -->
+<div id="reader" class="reader" hidden>
+  <header class="r-top">
+    <button class="ico" id="rBack" title="رجوع (Esc)" aria-label="رجوع">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" transform="scale(-1,1) translate(-24,0)"/></svg>
+    </button>
+    <div class="r-title">
+      <b id="rTitle">—</b>
+      <small id="rCrumb">—</small>
+    </div>
+    <div class="r-tools">
+      <button class="ico" id="rToc" title="الفهرس (C)" aria-label="فتح الفهرس">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+      </button>
+      <button class="ico" id="rNote" title="ملاحظتي على الصفحة (N)" aria-label="ملاحظتي على الصفحة">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v12l-4 4H5zM15 20v-4h4M8 9h8M8 13h5"/></svg>
+      </button>
+      <button class="ico" id="rFav" title="إضافة إلى المفضلة (B)" aria-label="إضافة إلى المفضلة" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9L3.5 9.7l5.9-.8z"/></svg>
+      </button>
+      <button class="ico only-wide" id="rHelp" title="الاختصارات (؟)" aria-label="الاختصارات">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.2c-.8.5-1.2 1-1.2 1.9M12 16.8h.01"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="pathbar" id="pathbar" hidden>
+    <button class="ico" id="pbPrev" aria-label="الخطوة السابقة في المسار"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="pb-mid"><b id="pbTitle"></b><span id="pbStep"></span><i class="pb-bar"><u id="pbFill"></u></i></div>
+    <button class="ico" id="pbNext" aria-label="الخطوة التالية في المسار"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="ico" id="pbExit" aria-label="الخروج من المسار" title="الخروج من المسار"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+
+  <div id="stage" class="stage" tabindex="0" aria-label="عارض الصفحة">
+    <img id="pimg" alt="" draggable="false">
+    <div class="spin" id="spin" aria-hidden="true"></div>
+    <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+    <button class="p-exit" id="pExit">إنهاء وضع العرض (Esc)</button>
+    <button class="side prev" id="sidePrev" aria-label="الصفحة السابقة">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <button class="side next" id="sideNext" aria-label="الصفحة التالية">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+  </div>
+
+  <footer class="r-bot">
+    <div class="r-nav">
+      <button class="ico" id="bPrev" title="الصفحة السابقة (→)" aria-label="الصفحة السابقة">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+      <input id="slider" type="range" min="1" max="281" value="1" step="1" dir="rtl" aria-label="الانتقال بين الصفحات">
+      <button class="ico" id="bNext" title="الصفحة التالية (←)" aria-label="الصفحة التالية">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+    </div>
+    <div class="r-mid">
+      <label class="goto" title="اكتب رقم الصفحة ثم Enter (G)">
+        <input id="gotoInput" type="text" inputmode="numeric" pattern="[0-9]*" value="1" aria-label="رقم الصفحة">
+        <span>/ <span id="totalPages">281</span></span>
+      </label>
+    </div>
+    <div class="r-acts">
+      <button class="ico" id="bZoomOut" title="تصغير (−)" aria-label="تصغير">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8 11h6"/></svg>
+      </button>
+      <button class="zoomval" id="zoomVal" title="إعادة الضبط (0)">100%</button>
+      <button class="ico" id="bZoomIn" title="تكبير (+)" aria-label="تكبير">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8 11h6M11 8v6"/></svg>
+      </button>
+      <button class="ico" id="bFit" title="ملاءمة العرض / ملاءمة الصفحة (W)" aria-label="تبديل نمط الملاءمة">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg>
+      </button>
+      <button class="ico" id="bPresent" title="وضع العرض للتكوين (V)" aria-label="وضع العرض" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/></svg>
+      </button>
+      <button class="ico only-wide" id="bPlay" title="عرض تلقائي (P)" aria-label="عرض تلقائي">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="i-play"><path d="M8 5l11 7-11 7z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="i-pause"><path d="M8 5v14M16 5v14"/></svg>
+      </button>
+      <button class="ico" id="bFull" title="ملء الشاشة (F)" aria-label="ملء الشاشة">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+      </button>
+      <a class="ico" id="bDown" title="تنزيل الصفحة كصورة" aria-label="تنزيل الصفحة" download href="#">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>
+      </a>
+      <button class="ico only-wide" id="bPrint" title="طباعة الصفحة" aria-label="طباعة">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V4h10v5M7 17H5v-6h14v6h-2M7 14h10v6H7z"/></svg>
+      </button>
+    </div>
+  </footer>
+
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" aria-label="فهرس الموسوعة" hidden>
+    <div class="drawer-h">
+      <div class="dtabs" role="tablist">
+        <button role="tab" data-t="toc" aria-selected="true">الفهرس</button>
+        <button role="tab" data-t="rel" aria-selected="false">ذات صلة</button>
+        <button role="tab" data-t="note" aria-selected="false">ملاحظاتي</button>
+      </div>
+      <button class="ico" id="drawerClose" aria-label="إغلاق">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="dpane" id="paneToc">
+      <div class="searchbar small">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="dq" type="search" placeholder="ابحث في الفهرس…" autocomplete="off" aria-label="بحث في الفهرس">
+      </div>
+      <div class="drawer-body">
+        <div id="dRoot" class="toc"></div>
+        <div id="dResults" class="results" hidden></div>
+      </div>
+    </div>
+    <div class="dpane" id="paneRel" hidden>
+      <div class="drawer-body"><p class="pane-h" id="relHead"></p><div id="relList" class="results"></div></div>
+    </div>
+    <div class="dpane" id="paneNote" hidden>
+      <div class="drawer-body">
+        <p class="pane-h" id="noteHead"></p>
+        <textarea id="noteText" rows="9" placeholder="اكتب ملاحظتك على هذه الصفحة… تُحفظ تلقائياً على هذا الجهاز." aria-label="ملاحظتي على الصفحة"></textarea>
+        <div class="note-foot"><span id="noteState">محفوظة</span><button class="link" id="noteDel">حذف الملاحظة</button></div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- نافذة المساعدة -->
+<div class="modal" id="help" hidden role="dialog" aria-modal="true" aria-labelledby="helpT">
+  <div class="modal-card">
+    <div class="modal-h"><h2 id="helpT">طريقة الاستخدام</h2><button class="ico" id="helpClose" aria-label="إغلاق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="help-grid">
+      <div>
+        <h3>التنقل</h3>
+        <dl>
+          <dt><kbd>←</kbd> <kbd>Space</kbd> <kbd>PgDn</kbd></dt><dd>الصفحة التالية</dd>
+          <dt><kbd>→</kbd> <kbd>PgUp</kbd></dt><dd>الصفحة السابقة</dd>
+          <dt><kbd>Home</kbd> <kbd>End</kbd></dt><dd>أول صفحة / آخر صفحة</dd>
+          <dt><kbd>G</kbd></dt><dd>الانتقال إلى رقم صفحة</dd>
+          <dt><kbd>C</kbd></dt><dd>فتح الفهرس</dd>
+          <dt><kbd>Esc</kbd></dt><dd>إغلاق / رجوع</dd>
+        </dl>
+      </div>
+      <div>
+        <h3>العرض</h3>
+        <dl>
+          <dt><kbd>+</kbd> <kbd>−</kbd> <kbd>0</kbd></dt><dd>تكبير / تصغير / إعادة الضبط</dd>
+          <dt><kbd>W</kbd></dt><dd>التبديل بين العرض الكبير والصفحة كاملة</dd>
+          <dt><kbd>F</kbd></dt><dd>ملء الشاشة</dd>
+          <dt><kbd>P</kbd></dt><dd>عرض تلقائي للصفحات</dd>
+          <dt><kbd>V</kbd></dt><dd>وضع العرض للتكوين (انقر مرتين لإضاءة موجّهة)</dd>
+          <dt><kbd>B</kbd></dt><dd>إضافة الصفحة إلى المفضلة</dd>
+          <dt><kbd>N</kbd></dt><dd>كتابة ملاحظة على الصفحة</dd>
+          <dt><kbd>Ctrl</kbd> + عجلة الفأرة</dt><dd>تكبير عند المؤشر</dd>
+        </dl>
+      </div>
+    </div>
+    <p class="help-note"><b>على الهاتف واللوحة:</b> اسحب الصفحة نحو اليمين للانتقال إلى التالية ونحو اليسار للسابقة، وانقر مرتين أو اضغط بإصبعين للتكبير، وانقر مرة واحدة لإخفاء الأشرطة.</p>
+  </div>
+</div>
+
+<div class="modal" id="pack" hidden role="dialog" aria-modal="true" aria-labelledby="packT">
+  <div class="modal-card">
+    <div class="modal-h"><h2 id="packT">طباعة أو تصدير صفحات</h2><button class="ico" id="packClose" aria-label="إغلاق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <p class="pack-note">اختر الصفحات ثم اضغط «طباعة»، وفي نافذة الطباعة اختر «حفظ بتنسيق PDF» لتحصل على ملف واحد. كل صفحة تُطبع على ورقة مستقلة.</p>
+    <label class="pack-l" for="packInput">أرقام الصفحات (مثال: 20-31, 45, 118)</label>
+    <input id="packInput" class="pack-in" type="text" inputmode="numeric" placeholder="20-31, 45, 118" autocomplete="off">
+    <div class="pack-quick" id="packQuick"></div>
+    <p class="pack-sum" id="packSum"></p>
+    <div class="cta"><button class="btn primary" id="packGo">طباعة / حفظ PDF</button><button class="btn" id="packCancel">إلغاء</button></div>
+  </div>
+</div>
+
+<div class="modal" id="onb" hidden role="dialog" aria-modal="true" aria-labelledby="onbT">
+  <div class="modal-card onb-card">
+    <div class="onb-slides" id="onbSlides"></div>
+    <div class="onb-foot">
+      <div class="onb-dots" id="onbDots"></div>
+      <div class="onb-btns">
+        <button class="link" id="onbSkip">تخطّي</button>
+        <button class="btn primary" id="onbNext">التالي</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="quizModal" hidden role="dialog" aria-modal="true" aria-labelledby="quizT">
+  <div class="modal-card quiz-card">
+    <div class="modal-h"><h2 id="quizT">اختبار</h2><button class="ico" id="quizClose" aria-label="إغلاق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div id="quizBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- ورقة الطباعة -->
+<div id="printSheet" aria-hidden="true"></div>
+
+<noscript><p style="padding:2rem;text-align:center">يلزم تفعيل JavaScript لتشغيل الموسوعة.</p></noscript>
+
+<nav class="bnav" id="bnav" aria-label="تنقّل سريع">
+  <a href="#/" data-nav="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/></svg><span>الرئيسية</span></a>
+  <a href="#/toc" data-nav="toc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>الفهرس</span></a>
+  <a href="#/paths" data-nav="paths"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>المسارات</span></a>
+  <a href="#/gallery" data-nav="gallery"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg><span>المعرض</span></a>
+  <a href="#/mine" data-nav="mine"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9L3.5 9.7l5.9-.8z"/></svg><span>مكتبتي</span></a>
+</nav>
+
+<script src="js/data.js"></script>
+<script src="js/extras.js"></script>
+<script src="js/glossary.js"></script>
+<script src="js/legal.js"></script>
+<script src="js/summaries.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/sessions.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
