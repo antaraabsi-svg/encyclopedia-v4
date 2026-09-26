@@ -520,14 +520,18 @@ label.btn { cursor: pointer; }
 .about-foot em { font-style: normal; color: var(--gold); font-weight: 700; }
 
 .signature-box { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
-.signature-img { max-width: 220px; width: 60%; height: auto; filter: var(--sig-filter, none); }
-:root[data-theme="dark"] .signature-img { filter: invert(1) brightness(1.4); background: transparent; }
-.fb-link { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: #1877f2; color: #fff; font-weight: 600; font-size: .92rem; text-decoration: none; transition: opacity .15s ease; }
-.fb-link:hover { opacity: .88; }
-.fb-link svg { width: 18px; height: 18px; fill: #fff; flex: none; }
 
-.fb-ico { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: #1877f2; flex: none; }
-.fb-ico svg { width: 19px; height: 19px; fill: #fff; }
+.credit-card { margin-top: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 24px; text-align: center; }
+.credit-label { display: block; font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.signature-img { display: block; max-width: 190px; width: 42%; min-width: 140px; height: auto; margin: 0 auto 20px; mix-blend-mode: multiply; }
+:root[data-theme="dark"] .signature-img { mix-blend-mode: normal; filter: invert(1) brightness(1.5) contrast(1.05); }
+
+.fb-link { display: inline-flex; align-items: center; gap: 9px; padding: 10px 20px; border-radius: 999px; background: #1877f2; color: #fff; font-weight: 600; font-size: .92rem; text-decoration: none; transition: opacity .15s ease; line-height: 1; }
+.fb-link:hover { opacity: .88; }
+.fb-link svg { width: 18px; height: 18px; fill: #fff; flex: none; display: block; }
+
+.fb-ico { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: #1877f2; flex: none; }
+.fb-ico svg { width: 20px; height: 20px; fill: #fff; display: block; }
 
 /* نافذة الطباعة */
 .pack-note { margin: 0 0 14px; color: var(--muted); font-size: .92rem; }
@@ -713,7 +717,8 @@ label.btn { cursor: pointer; }
 .onb-slide h2{font-size:1.3rem;margin-bottom:10px}
 .onb-slide p{color:var(--muted);line-height:1.7;margin:0}
 .onb-slide .onb-ic{font-size:2.2rem;margin-bottom:14px}
-.onb-slide .onb-sig{display:block;max-width:170px;width:55%;height:auto;margin:16px auto 14px}
+.onb-slide .onb-sig{display:block;max-width:170px;width:55%;height:auto;margin:16px auto 14px;mix-blend-mode:multiply}
+:root[data-theme="dark"] .onb-slide .onb-sig{mix-blend-mode:normal;filter:invert(1) brightness(1.5) contrast(1.05)}
 .onb-slide .fb-link{margin:0 auto;width:fit-content}
 .onb-foot{display:flex;justify-content:space-between;align-items:center;padding:14px 24px 22px}
 .onb-dots{display:flex;gap:6px}
