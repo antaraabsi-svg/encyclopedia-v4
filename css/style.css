@@ -270,6 +270,8 @@ details[open] > summary .chev { transform: rotate(-90deg); }
 .row .fav { flex: none; width: 16px; height: 16px; color: var(--gold); opacity: 0; }
 .row .fav path { fill: currentColor; }
 .row.isfav .fav { opacity: 1; }
+.row.seen .pg { opacity: .55; }
+.row.seen .tt::before { content: "✓ "; color: var(--green-2); font-weight: 800; }
 .results { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
 .results .row { background: var(--surface); border: 1px solid var(--line); padding: 10px 14px; }
 .results .row:hover { border-color: var(--gold); }
@@ -304,6 +306,24 @@ mark { background: #ffe38a; color: #1a1200; border-radius: 3px; padding: 0 2px; 
 .tile .star { position: absolute; top: 8px; inset-inline-start: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(13, 33, 80, .82); color: var(--gold); display: none; place-items: center; }
 .tile .star svg { width: 15px; height: 15px; fill: currentColor; stroke: none; }
 .tile.isfav .star { display: grid; }
+.tile.seen .th { position: relative; }
+.tile.seen .th::after { content: "✓"; position: absolute; top: 8px; inset-inline-end: 8px; width: 22px; height: 22px; border-radius: 50%; background: var(--green-2); color: #fff; font-size: .72rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+
+/* شبكة الصفحات ذات الصلة داخل الدرج */
+.rel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-top: 10px; }
+.rel-grid .tile .cap { font-size: .78rem; padding: 6px 8px 8px; min-height: 3.6em; }
+
+/* شارة عدد الصفحات ذات الصلة على تبويب الدرج */
+.tab-badge { display: inline-block; min-width: 1.3em; padding: 0 .3em; margin-inline-start: 4px; background: var(--gold); color: #1a1200; border-radius: 99px; font-size: .72rem; font-weight: 800; line-height: 1.5; text-align: center; }
+
+/* نقطة "جديد" على زر حول الموسوعة */
+#btnAbout { position: relative; }
+.new-dot { position: absolute; top: 6px; inset-inline-end: 6px; width: 9px; height: 9px; border-radius: 50%; background: #ff5a5a; box-shadow: 0 0 0 2px var(--navy); }
+:root[data-theme="dark"] .new-dot { box-shadow: 0 0 0 2px #0a1122; }
+
+/* شارة آخر نتيجة اختبار */
+.q-score { display: block; font-size: .82rem; color: var(--gold); font-weight: 700; }
+.quiz-card2 .q-score { color: var(--gold); font-size: .82rem; font-weight: 700; }
 
 /* ══════════ القارئ ══════════ */
 .reader {

@@ -60,6 +60,16 @@
   var hist = store.get('hist', []).filter(validP);
   var pathDone = store.get('pathdone', {});
   var lastPage = store.get('last', 0);
+  var readSet = store.get('read', {});
+  function markRead(p) {
+    if (!readSet[p]) {
+      readSet[p] = 1; store.set('read', readSet);
+      var els = document.querySelectorAll('[data-p="' + p + '"]');
+      for (var i = 0; i < els.length; i++) els[i].classList.add('seen');
+    }
+  }
+  function readCount() { return Object.keys(readSet).length; }
+  var quizScores = store.get('quizsc', {});
   function noteCount() { return Object.keys(notes).length; }
   function isFav(p) { return favs.indexOf(p) > -1; }
   function toggleFav(p) {
@@ -174,7 +184,7 @@
   function rowHTML(p, opts) {
     opts = opts || {};
     var i = INFO[p];
-    var cls = 'row' + (i.k === 'c' ? ' cover' : '') + (isFav(p) ? ' isfav' : '') + (notes[p] ? ' hasnote' : '');
+    var cls = 'row' + (i.k === 'c' ? ' cover' : '') + (isFav(p) ? ' isfav' : '') + (notes[p] ? ' hasnote' : '') + (readSet[p] ? ' seen' : '');
     var crumb = opts.crumb ? '<small>' + esc(CUR_G(p).short + ' › ' + CUR_S(p).title) + '</small>' : '';
     var title = opts.hl ? highlight(i.t, opts.hl) : esc(i.t);
     var href = '#/p/' + p + (opts.path ? '/' + opts.path : '');
@@ -238,8 +248,19 @@
     }
     found.sort(function (a, b) { return a.w - b.w || a.s.p - b.s.p; });
     var html = '<p class="res-count">' + (found.length ? found.length + ' نتيجة' : '') + '</p>';
-    if (!found.length) html = '<p class="empty">لا توجد نتائج مطابقة لـ «' + esc(q) + '». جرّب كلمة أقصر أو رقم الصفحة.</p>';
-    html += found.slice(0, 80).map(function (f) { return rowHTML(f.s.p, { crumb: true, hl: tokens }); }).join('');
+    if (!found.length) {
+      html = '<p class="empty">لا توجد نتائج مطابقة لـ «' + esc(q) + '». جرّب كلمة أقصر أو رقم الصفحة.</p>';
+      var sugg = [];
+      GLS.forEach(function (g) {
+        var gt = norm(g.t);
+        var hit = tokens.some(function (tok) { return tok.length > 1 && (gt.indexOf(tok) > -1 || tok.indexOf(gt) > -1); });
+        if (hit) (g.pages || []).forEach(function (p) { if (sugg.indexOf(p) < 0) sugg.push(p); });
+      });
+      if (sugg.length) {
+        html += '<p class="res-count">قد يفيدك من قاموس المصطلحات:</p>' + sugg.slice(0, 10).map(function (p) { return rowHTML(p, { crumb: true }); }).join('');
+      }
+    }
+    else html += found.slice(0, 80).map(function (f) { return rowHTML(f.s.p, { crumb: true, hl: tokens }); }).join('');
     if (found.length > 80) html += '<p class="res-count">تم عرض أول 80 نتيجة، ضيّق البحث لنتائج أدق.</p>';
     resBox.innerHTML = html; resBox.hidden = false; treeBox.hidden = true;
     if (extraHide) extraHide.hidden = true;
@@ -286,7 +307,7 @@
 
   /* ───────── المعرض ───────── */
   function tileHTML(p) {
-    return '<a class="tile' + (isFav(p) ? ' isfav' : '') + (notes[p] ? ' hasnote' : '') + '" data-p="' + p + '" href="#/p/' + p + '"><span class="star"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9L3.5 9.7l5.9-.8z"/></svg></span>' +
+    return '<a class="tile' + (isFav(p) ? ' isfav' : '') + (notes[p] ? ' hasnote' : '') + (readSet[p] ? ' seen' : '') + '" data-p="' + p + '" href="#/p/' + p + '"><span class="star"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9L3.5 9.7l5.9-.8z"/></svg></span>' +
       '<div class="th"><img loading="lazy" decoding="async" src="' + thumbSrc(p) + '" alt=""></div><div class="cap"><b>ص ' + p + '</b>' + esc(INFO[p].t) + '</div></a>';
   }
   var galFilter = 'all';
@@ -510,6 +531,8 @@
     document.title = inf.t + ' — موسوعة الإنفوغرافيك المهني';
 
     store.set('last', p); lastPage = p;
+    markRead(p);
+    var relBadge = $('relBadge'); if (relBadge) { var relN = related(p).length; relBadge.hidden = !relN; relBadge.textContent = relN; }
     hist = [p].concat(hist.filter(function (x) { return x !== p; })).slice(0, 12); store.set('hist', hist);
     var pt = curPath();
     if (pt && pt.pages.indexOf(p) > -1) {
@@ -617,7 +640,7 @@
       var rel = related(reader.cur), tg = (PT[reader.cur] || []).map(function (t) { return TAGS[t].label; });
       var guide = SUM[reader.cur] ? '<div class="r-guide"><b>دليل — متى أستعملها؟</b><br>' + esc(SUM[reader.cur]) + '</div>' : '';
       $('relHead').innerHTML = guide + (tg.length ? 'مواضيع هذه الصفحة: ' + esc(tg.join(' · ')) : (guide ? '' : 'لا تتوفر صفحات ذات صلة بهذه الصفحة.'));
-      $('relList').innerHTML = rel.map(function (p) { return rowHTML(p, { crumb: true }); }).join('');
+      $('relList').innerHTML = rel.length ? '<div class="rel-grid">' + rel.map(tileHTML).join('') + '</div>' : '';
     } else loadNote();
   }
   function openDrawer(t) { $('drawer').hidden = false; $('scrim').hidden = false; setTab(t || dTab); }
@@ -805,8 +828,9 @@
   /* حول */
   function showAbout() {
     var totalInf = 0; for (var p = 1; p <= N; p++) if (!INFO[p].k && INFO[p].n) totalInf++;
-    var stats = [[N, 'صفحة'], [4, 'سلاسل'], [X.tags.length, 'موضوعاً'], [X.paths.length, 'مسارات للقراءة']];
+    var stats = [[N, 'صفحة'], [4, 'سلاسل'], [X.tags.length, 'موضوعاً'], [X.paths.length, 'مسارات للقراءة'], [readCount(), 'صفحة قرأتها']];
     $('aboutStats').innerHTML = stats.map(function (s) { return '<div><b>' + s[0] + '</b><span>' + s[1] + '</span></div>'; }).join('');
+    if ($('aboutDot')) { $('aboutDot').hidden = true; store.set('about_new_v6', 1); }
   }
 
   var canCache = /^https?:$/.test(location.protocol) && 'caches' in window;
@@ -1047,7 +1071,9 @@
 
   function buildQuizList() {
     $('paneQuiz').innerHTML = '<div class="quiz-list">' + QZ.map(function (qz, i) {
-      return '<div class="quiz-card2"><b>' + esc(qz.title) + '</b><span>' + qz.qs.length + ' أسئلة — اختيار من متعدد</span><button class="btn primary" data-startquiz="' + i + '">ابدأ الاختبار</button></div>';
+      var sc = quizScores[i];
+      var badge = sc ? '<span class="q-score">آخر نتيجة: ' + sc.score + ' / ' + sc.total + '</span>' : '';
+      return '<div class="quiz-card2"><b>' + esc(qz.title) + '</b><span>' + qz.qs.length + ' أسئلة — اختيار من متعدد</span>' + badge + '<button class="btn primary" data-startquiz="' + i + '">' + (sc ? 'إعادة الاختبار' : 'ابدأ الاختبار') + '</button></div>';
     }).join('') + '</div>';
   }
   var qzState = null;
@@ -1082,6 +1108,10 @@
     if (e.target.id === 'qNext') {
       st.idx++; st.answered = false;
       if (st.idx >= st.qz.qs.length) {
+        var qi = QZ.indexOf(st.qz);
+        quizScores[qi] = { score: st.score, total: st.qz.qs.length };
+        store.set('quizsc', quizScores);
+        buildQuizList();
         $('quizBody').innerHTML = '<div class="q-done"><b>' + st.score + ' / ' + st.qz.qs.length + '</b><p>نتيجتك في ' + esc(st.qz.title) + '</p><button class="btn primary" id="qRetry">إعادة الاختبار</button></div>';
       } else renderQuiz();
     }
@@ -1234,6 +1264,7 @@
   }
 
   /* ───────── بدء التشغيل ───────── */
+  if ($('aboutDot') && !store.get('about_new_v6', 0)) $('aboutDot').hidden = false;
   buildHome();
   refreshFavUI();
   route();
