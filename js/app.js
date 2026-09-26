@@ -148,7 +148,7 @@
       sg.appendChild(a);
     });
     var quick = [['رؤية الموسوعة', 11], ['رسالة الموسوعة', 12], ['أهداف الموسوعة', 13], ['الفئات المستفيدة', 14], ['الفهرس العام', 2], ['صدقة جارية', 280], ['ملخص الموسوعة', 281]];
-    $('quick').innerHTML = quick.map(function (q) { return '<a href="#/p/' + q[1] + '">' + q[0] + '<b>' + q[1] + '</b></a>'; }).join('');
+    $('quick').innerHTML = quick.map(function (q) { return '<a href="#/p/' + q[1] + '">' + q[0] + '<b>' + q[1] + '</b></a>'; }).join('') + '<a href="#/map">خريطة الموسوعة الذهنية</a>';
     $('topicChips').innerHTML = X.tags.map(function (t) { return '<a class="chip" href="#/gallery/t-' + t.id + '">' + esc(t.label) + '<small>' + TAGN[t.id] + '</small></a>'; }).join('');
     refreshHome();
   }
@@ -825,6 +825,56 @@
   $('offlineBox').hidden = !canCache;
 
 
+  /* ═════════════ خريطة الموسوعة الذهنية ═════════════ */
+  var mmBuilt = false;
+  function buildMindmap() {
+    if (mmBuilt) return;
+    mmBuilt = true;
+    var W = 1040, H = 980, cx = W / 2, cy = H / 2;
+    var seriesGroups = E.groups.filter(function (g) { return g.cover; });
+    var n = seriesGroups.length;
+    var svg = ['<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" xmlns="http://www.w3.org/2000/svg">'];
+    var linksHtml = '', nodesHtml = '';
+    var R1 = 230;
+    seriesGroups.forEach(function (g, i) {
+      var ang = (i / n) * 2 * Math.PI - Math.PI / 2;
+      var sx = cx + R1 * Math.cos(ang), sy = cy + R1 * Math.sin(ang);
+      linksHtml += '<path class="mm-link" d="M' + cx + ',' + cy + ' Q' + ((cx + sx) / 2 + 40 * Math.sin(ang)) + ',' + ((cy + sy) / 2 - 40 * Math.cos(ang)) + ' ' + sx + ',' + sy + '"/>';
+      var color = 'var(--s' + (i + 1) + ')';
+      var secs = g.sections.filter(function (sec) { return sec.title.indexOf('مدخل') === -1 && sec.title.indexOf('ختام') === -1; });
+      var m = secs.length;
+      secs.forEach(function (sec, j) {
+        var spread = Math.min(Math.PI * 0.9, m * 0.4);
+        var a2 = ang + (m > 1 ? (j / (m - 1) - 0.5) * spread : 0);
+        var R2 = 145 + (j % 2) * 42;
+        var nx = sx + R2 * Math.cos(a2), ny = sy + R2 * Math.sin(a2);
+        var first = sec.items[0][0];
+        linksHtml += '<path class="mm-link" d="M' + sx + ',' + sy + ' Q' + ((sx + nx) / 2 + 22 * Math.sin(a2)) + ',' + ((sy + ny) / 2 - 22 * Math.cos(a2)) + ' ' + nx + ',' + ny + '" style="stroke:' + color + ';stroke-opacity:.45"/>';
+        var lbl = sec.title.replace(/^المحور (\S+): /, '').replace(/^الجزء (\S+): /, '');
+        lbl = (j + 1) + '. ' + (lbl.length > 26 ? lbl.slice(0, 25) + '…' : lbl);
+        var anchor = nx > cx ? 'start' : (Math.abs(nx - cx) < 4 ? 'middle' : 'end');
+        var dx = nx > cx ? 10 : (Math.abs(nx - cx) < 4 ? 0 : -10);
+        nodesHtml += '<g class="mm-node" data-href="#/toc/' + (E.groups.indexOf(g)) + '"><circle class="mm-dot" cx="' + nx + '" cy="' + ny + '" r="9" fill="transparent"/><circle class="mm-dot" cx="' + nx + '" cy="' + ny + '" r="5" fill="' + color + '"/>' +
+          '<text class="mm-lbl" x="' + (nx + dx) + '" y="' + (ny + 4) + '" text-anchor="' + anchor + '">' + esc(lbl) + '</text></g>';
+      });
+      var sName = g.short;
+      var sAnchor = sx > cx ? 'start' : (Math.abs(sx - cx) < 4 ? 'middle' : 'end');
+      var sdx = sx > cx ? 14 : (Math.abs(sx - cx) < 4 ? 0 : -14);
+      var first = g.sections[0].items[0][0], last = g.sections[g.sections.length - 1].items.slice(-1)[0][0];
+      nodesHtml += '<g class="mm-node" data-href="#/toc/' + (E.groups.indexOf(g)) + '"><circle class="mm-dot" cx="' + sx + '" cy="' + sy + '" r="10" fill="' + color + '"/>' +
+        '<text class="mm-lbl s" x="' + (sx + sdx) + '" y="' + (sy - 8) + '" text-anchor="' + sAnchor + '">' + esc(sName) + '</text>' +
+        '<text class="mm-range" x="' + (sx + sdx) + '" y="' + (sy + 16) + '" text-anchor="' + sAnchor + '">ص ' + first + '–' + last + '</text></g>';
+    });
+    svg.push(linksHtml, nodesHtml);
+    svg.push('<g class="mm-center"><circle cx="' + cx + '" cy="' + cy + '" r="46"/><text x="' + cx + '" y="' + (cy - 4) + '" text-anchor="middle" font-size="13">الموسوعة</text><text x="' + cx + '" y="' + (cy + 13) + '" text-anchor="middle" font-size="10">281 صفحة</text></g>');
+    svg.push('</svg>');
+    $('mindmap').innerHTML = svg.join('');
+  }
+  $('mindmap').addEventListener('click', function (e) {
+    var n = e.target.closest && e.target.closest('.mm-node');
+    if (n && n.dataset.href) location.hash = n.dataset.href;
+  });
+
   /* ═════════════ الأدوات التفاعلية ═════════════ */
   var toolData = store.get('tools', {});
   function toolStore(id) { return toolData[id] || (toolData[id] = {}); }
@@ -1041,7 +1091,7 @@
   $('quizModal').addEventListener('click', function (e) { if (e.target === this) { this.hidden = true; qzState = null; } });
 
   function buildLegal() {
-    $('paneLegal').innerHTML = '<p class="legal-note">قائمة أولية غير شاملة، مجموعة مما ورد صراحة في صفحات الموسوعة التي راجعناها. راجعها مع الديوان قبل اعتمادها مرجعاً رسمياً.</p><div class="legal-list">' +
+    $('paneLegal').innerHTML = '<p class="legal-note">قائمة موسّعة من 5 نصوص قانونية وتنظيمية، مجموعة من 21 صفحة راجعناها فعلياً (أغلبها من السلسلة الأولى). تبقى غير شاملة بالكامل — راجعها مع الديوان قبل اعتمادها مرجعاً رسمياً.</p><div class="legal-list">' +
       LEGAL.map(function (l) {
         return '<div class="legal-item"><h3>' + esc(l.title) + '</h3><p>' + esc(l.desc) + '</p>' +
           (l.articles.length ? '<ul>' + l.articles.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul>' : '') +
@@ -1094,12 +1144,13 @@
     { ic: '📖', h: 'أهلاً بك في الموسوعة', p: 'مرجع بصري لـ281 صفحة إنفوغرافيك، منظّمة في أربع سلاسل، ويعمل البرنامج بالكامل دون إنترنت.' },
     { ic: '🧭', h: 'مسارات جاهزة حسب دورك', p: 'اختر «المسارات» من القائمة ليرتّب لك البرنامج الصفحات الأهم بالترتيب المناسب لعملك، مع تتبّع تقدّمك.' },
     { ic: '🧰', h: 'أدوات تُملأ وتُطبع', p: 'من «الأدوات» يمكنك تعبئة SWOT وشجرة المشكلات وSMART والإطار المنطقي وغيرها مباشرة، ثم طباعتها أو تصديرها.' },
-    { ic: '⭐', h: 'مكتبتك الخاصة', p: 'أضف صفحات للمفضلة واكتب ملاحظاتك عليها من داخل القارئ (زر النجمة أو المفكرة)، وكلها محفوظة على جهازك فقط.' }
+    { ic: '⭐', h: 'مكتبتك الخاصة', p: 'أضف صفحات للمفضلة واكتب ملاحظاتك عليها من داخل القارئ (زر النجمة أو المفكرة)، وكلها محفوظة على جهازك فقط.' },
+    { ic: '', h: 'ديوان قطاع الشباب والرياضة', p: 'نبني صرح الفكر، نرتقي بعقولهم', extra: '<img src="assets/signature.jpg" alt="توقيع بن دوحة بوعلام" class="onb-sig"><a class="fb-link" href="https://www.facebook.com/groups/www.diwan.js1236" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.23 10.44 22v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22C18.34 21.23 22 17.08 22 12.06z"/></svg><span>صفحتنا على فيسبوك — ديوان قطاع الشباب والرياضة</span></a>' }
   ];
   var onbIdx = 0;
   function renderOnb() {
     $('onbSlides').innerHTML = ONB.map(function (s, i) {
-      return '<div class="onb-slide" ' + (i === onbIdx ? '' : 'hidden') + '><div class="onb-ic">' + s.ic + '</div><h2>' + s.h + '</h2><p>' + s.p + '</p></div>';
+      return '<div class="onb-slide" ' + (i === onbIdx ? '' : 'hidden') + '><div class="onb-ic">' + s.ic + '</div><h2>' + s.h + '</h2><p>' + s.p + '</p>' + (s.extra || '') + '</div>';
     }).join('');
     $('onbDots').innerHTML = ONB.map(function (_, i) { return '<i class="' + (i === onbIdx ? 'on' : '') + '"></i>'; }).join('');
     $('onbNext').textContent = onbIdx === ONB.length - 1 ? 'ابدأ' : 'التالي';
@@ -1115,7 +1166,7 @@
 
   /* ═════════════ التوجيه ═════════════ */
   var currentView = 'home';
-  var views = { home: $('view-home'), toc: $('view-toc'), paths: $('view-paths'), tools: $('view-tools'), tool: $('view-tool'), glossary: $('view-glossary'), training: $('view-training'), gallery: $('view-gallery'), mine: $('view-mine'), about: $('view-about') };
+  var views = { home: $('view-home'), toc: $('view-toc'), paths: $('view-paths'), map: $('view-map'), tools: $('view-tools'), tool: $('view-tool'), glossary: $('view-glossary'), training: $('view-training'), gallery: $('view-gallery'), mine: $('view-mine'), about: $('view-about') };
   function setNav(n) {
     [].forEach.call(document.querySelectorAll('.tabs a'), function (a) { a.classList.toggle('on', a.dataset.nav === n); });
   }
@@ -1150,6 +1201,7 @@
     if (v === 'tool') { openTool(parts[1]); window.scrollTo(0, 0); }
     if (v === 'glossary') { showGlossary(); window.scrollTo(0, 0); }
     if (v === 'training') { showTraining(parts[1] || 'sessions'); window.scrollTo(0, 0); }
+    if (v === 'map') { buildMindmap(); window.scrollTo(0, 0); }
     setBnav(v);
   }
   window.addEventListener('hashchange', route);

@@ -25,6 +25,7 @@
     <a href="#/" data-nav="home">الرئيسية</a>
     <a href="#/toc" data-nav="toc">الفهرس</a>
     <a href="#/paths" data-nav="paths">المسارات</a>
+    <a href="#/map" data-nav="map">الخريطة</a>
     <a href="#/tools" data-nav="tools">الأدوات</a>
     <a href="#/glossary" data-nav="glossary">القاموس</a>
     <a href="#/training" data-nav="training">التكوين</a>
@@ -105,6 +106,9 @@
       <footer class="foot">
         <img src="assets/logo.png" alt="" width="56" height="56">
         <p>ديوان قطاع الشباب والرياضة — <em>نبني صرح الفكر، نرتقي بعقولهم</em></p>
+        <a class="fb-ico" href="https://www.facebook.com/groups/www.diwan.js1236" target="_blank" rel="noopener noreferrer" aria-label="صفحتنا على فيسبوك">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.23 10.44 22v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22C18.34 21.23 22 17.08 22 12.06z"/></svg>
+        </a>
       </footer>
     </div>
   </section>
@@ -204,15 +208,32 @@
         <li><b>الطباعة:</b> اختر صفحات (مثلاً «20-31, 45») واطبعها أو احفظها ملف PDF لتوزيعها في ورشة أو اجتماع.</li>
       </ul>
       <h2>وضوح الصفحات والدقة العالية</h2>
-      <p>الصفحات في هذا البرنامج نسخ محسّنة بدقة مضاعفة لتظهر أنقى عند التكبير. إن توفرت لديك الصور الأصلية بدقة أعلى، ضعها في مجلد <b>hd</b> بجانب index.html بالأسماء 001 … 281 (jpg أو png أو webp)، فيستعملها البرنامج تلقائياً دون أي تعديل.</p>
-      <h2>التثبيت والاستخدام دون إنترنت</h2>
-      <p>يعمل البرنامج مباشرة من الملف <b>index.html</b> دون اتصال. وإذا نُشر على موقع، يمكن تثبيته من المتصفح كتطبيق على الهاتف أو الحاسوب.</p>
+      <p>الصفحات في هذا البرنامج نسخ محسّنة بدقة مضاعفة لتظهر أنقى عند التكبير.</p>
       <div id="offlineBox" hidden>
         <h2>حفظ كل الصفحات على جهازك</h2>
         <p>يحمّل هذا الزر الصفحات الـ 281 مرة واحدة ليعمل البرنامج بعدها دون إنترنت حتى بعد إغلاق المتصفح.</p>
         <div class="cta"><button class="btn" id="btnCacheAll">حفظ الصفحات للاستخدام دون إنترنت</button><span id="cacheState" class="pack-sum"></span></div>
       </div>
       <p class="about-foot"><em>نبني صرح الفكر، نرتقي بعقولهم</em></p>
+
+      <div class="signature-box">
+        <img src="assets/signature.jpg" alt="توقيع بن دوحة بوعلام" class="signature-img">
+        <a class="fb-link" href="https://www.facebook.com/groups/www.diwan.js1236" target="_blank" rel="noopener noreferrer" aria-label="صفحة ديوان قطاع الشباب والرياضة على فيسبوك">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.23 10.44 22v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22C18.34 21.23 22 17.08 22 12.06z"/></svg>
+          <span>صفحتنا على فيسبوك — ديوان قطاع الشباب والرياضة</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ خريطة الموسوعة الذهنية ═════════ -->
+  <section id="view-map" class="view" hidden>
+    <div class="wrap">
+      <div class="page-h">
+        <h1>خريطة الموسوعة الذهنية</h1>
+        <p>نظرة واحدة على السلاسل الأربع ومحاورها. اضغط على أي فرع لفتح فهرسه.</p>
+      </div>
+      <div id="mindmap" class="mindmap"></div>
     </div>
   </section>
 
