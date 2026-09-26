@@ -1206,6 +1206,26 @@
   }
   window.addEventListener('hashchange', route);
 
+  /* ───────── أزرار التنقّل السريع أعلى/أسفل الصفحة ───────── */
+  (function () {
+    var nav = $('scrollNav'), btnTop = $('scrollTopBtn'), btnBottom = $('scrollBottomBtn');
+    if (!nav || !btnTop || !btnBottom) return;
+    function maxScroll() { return Math.max(0, document.documentElement.scrollHeight - window.innerHeight); }
+    function update() {
+      var y = window.scrollY || document.documentElement.scrollTop, mx = maxScroll();
+      if (mx < 120) { nav.classList.remove('show'); return; }
+      nav.classList.add('show');
+      btnTop.disabled = y <= 40;
+      btnBottom.disabled = y >= mx - 40;
+    }
+    btnTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    btnBottom.addEventListener('click', function () { window.scrollTo({ top: maxScroll(), behavior: 'smooth' }); });
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    window.addEventListener('hashchange', function () { setTimeout(update, 60); });
+    setTimeout(update, 200);
+  })();
+
   /* ───────── PWA (عند النشر على موقع فقط) ───────── */
   if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () { }); });
