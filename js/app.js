@@ -1163,6 +1163,8 @@
   $('onbSkip').onclick = function () { $('onb').hidden = true; store.set('onb_seen', 1); };
   $('onb').addEventListener('click', function (e) { if (e.target === this) { this.hidden = true; store.set('onb_seen', 1); } });
   if (!store.get('onb_seen', 0)) { onbIdx = 0; renderOnb(); $('onb').hidden = false; }
+  var btnReplayOnb = $('btnReplayOnb');
+  if (btnReplayOnb) btnReplayOnb.onclick = function () { onbIdx = 0; renderOnb(); $('onb').hidden = false; };
 
   /* ═════════════ التوجيه ═════════════ */
   var currentView = 'home';
