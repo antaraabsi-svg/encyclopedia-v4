@@ -748,7 +748,8 @@ label.btn { cursor: pointer; }
 
 /* خريطة الموسوعة الذهنية */
 .mindmap{position:relative;width:100%;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:10px}
-.mindmap svg{display:block;margin:0 auto;width:100%;height:auto;max-width:980px;min-width:640px}
+.mm-hint{color:var(--muted);font-size:.88rem;margin-top:2px}
+.mindmap svg{display:block;margin:0 auto;width:100%;height:auto;max-width:1300px;min-width:760px}
 .mindmap svg,.mindmap svg *{stroke-width:auto}
 .mindmap svg circle{stroke:none}
 .mindmap svg text{stroke:none;fill:var(--text)}
@@ -761,9 +762,9 @@ label.btn { cursor: pointer; }
 :root[data-theme="dark"] .mm-center circle{fill:var(--gold)}
 .mm-center text{fill:#fff;font-weight:800}
 :root[data-theme="dark"] .mm-center text{fill:#1a1200}
-.mm-lbl{font-size:12px;fill:var(--text);font-family:var(--font)}
-.mm-lbl.s{font-size:13px;font-weight:800;fill:var(--head)}
-.mm-range{font-size:10px;fill:var(--muted)}
+.mm-lbl{font-size:14px;fill:var(--text);font-family:var(--font);paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.mm-lbl.s{font-size:17px;font-weight:800;fill:var(--head)}
+.mm-range{font-size:11px;fill:var(--muted);paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
 
 /* أزرار التنقّل السريع أعلى/أسفل الصفحة */
 .scrollnav{position:fixed;inset-inline-end:18px;bottom:26px;z-index:35;display:flex;flex-direction:column;gap:10px;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease}

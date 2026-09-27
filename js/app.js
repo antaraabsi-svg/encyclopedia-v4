@@ -854,7 +854,7 @@
   function buildMindmap() {
     if (mmBuilt) return;
     mmBuilt = true;
-    var W = 1040, H = 980, cx = W / 2, cy = H / 2;
+    var W = 1300, H = 980, cx = W / 2, cy = H / 2;
     var seriesGroups = E.groups.filter(function (g) { return g.cover; });
     var n = seriesGroups.length;
     var svg = ['<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" xmlns="http://www.w3.org/2000/svg">'];
@@ -875,22 +875,22 @@
         var first = sec.items[0][0];
         linksHtml += '<path class="mm-link" d="M' + sx + ',' + sy + ' Q' + ((sx + nx) / 2 + 22 * Math.sin(a2)) + ',' + ((sy + ny) / 2 - 22 * Math.cos(a2)) + ' ' + nx + ',' + ny + '" style="stroke:' + color + ';stroke-opacity:.45"/>';
         var lbl = sec.title.replace(/^المحور (\S+): /, '').replace(/^الجزء (\S+): /, '');
-        lbl = (j + 1) + '. ' + (lbl.length > 26 ? lbl.slice(0, 25) + '…' : lbl);
-        var anchor = nx > cx ? 'start' : (Math.abs(nx - cx) < 4 ? 'middle' : 'end');
-        var dx = nx > cx ? 10 : (Math.abs(nx - cx) < 4 ? 0 : -10);
+        lbl = (j + 1) + '. ' + (lbl.length > 30 ? lbl.slice(0, 29) + '…' : lbl);
+        var anchor = nx > cx ? 'end' : (Math.abs(nx - cx) < 4 ? 'middle' : 'start');
+        var dx = nx > cx ? 12 : (Math.abs(nx - cx) < 4 ? 0 : -12);
         nodesHtml += '<g class="mm-node" data-href="#/toc/' + (E.groups.indexOf(g)) + '"><circle class="mm-dot" cx="' + nx + '" cy="' + ny + '" r="9" fill="transparent"/><circle class="mm-dot" cx="' + nx + '" cy="' + ny + '" r="5" fill="' + color + '"/>' +
           '<text class="mm-lbl" x="' + (nx + dx) + '" y="' + (ny + 4) + '" text-anchor="' + anchor + '">' + esc(lbl) + '</text></g>';
       });
       var sName = g.short;
-      var sAnchor = sx > cx ? 'start' : (Math.abs(sx - cx) < 4 ? 'middle' : 'end');
-      var sdx = sx > cx ? 14 : (Math.abs(sx - cx) < 4 ? 0 : -14);
+      var sAnchor = sx > cx ? 'end' : (Math.abs(sx - cx) < 4 ? 'middle' : 'start');
+      var sdx = sx > cx ? 16 : (Math.abs(sx - cx) < 4 ? 0 : -16);
       var first = g.sections[0].items[0][0], last = g.sections[g.sections.length - 1].items.slice(-1)[0][0];
       nodesHtml += '<g class="mm-node" data-href="#/toc/' + (E.groups.indexOf(g)) + '"><circle class="mm-dot" cx="' + sx + '" cy="' + sy + '" r="10" fill="' + color + '"/>' +
         '<text class="mm-lbl s" x="' + (sx + sdx) + '" y="' + (sy - 8) + '" text-anchor="' + sAnchor + '">' + esc(sName) + '</text>' +
         '<text class="mm-range" x="' + (sx + sdx) + '" y="' + (sy + 16) + '" text-anchor="' + sAnchor + '">ص ' + first + '–' + last + '</text></g>';
     });
     svg.push(linksHtml, nodesHtml);
-    svg.push('<g class="mm-center"><circle cx="' + cx + '" cy="' + cy + '" r="46"/><text x="' + cx + '" y="' + (cy - 4) + '" text-anchor="middle" font-size="13">الموسوعة</text><text x="' + cx + '" y="' + (cy + 13) + '" text-anchor="middle" font-size="10">281 صفحة</text></g>');
+    svg.push('<g class="mm-center"><circle cx="' + cx + '" cy="' + cy + '" r="48"/><text x="' + cx + '" y="' + (cy - 4) + '" text-anchor="middle" font-size="15">الموسوعة</text><text x="' + cx + '" y="' + (cy + 14) + '" text-anchor="middle" font-size="11">281 صفحة</text></g>');
     svg.push('</svg>');
     $('mindmap').innerHTML = svg.join('');
   }
