@@ -134,17 +134,6 @@
     toast('حجم الخط: ' + ['عادي', 'كبير', 'أكبر'][fs]);
   };
 
-  var comfort = store.get('comfort', 0);
-  function applyComfort() {
-    document.documentElement.setAttribute('data-comfort', comfort ? '1' : '0');
-    $('btnComfort').setAttribute('aria-pressed', comfort ? 'true' : 'false');
-  }
-  applyComfort();
-  $('btnComfort').onclick = function () {
-    comfort = comfort ? 0 : 1; store.set('comfort', comfort); applyComfort();
-    toast(comfort ? 'القراءة المريحة: مفعّلة' : 'القراءة المريحة: متوقفة');
-  };
-
   /* ───────── الرئيسية ───────── */
   function pathProgress(pt) {
     var done = (pathDone[pt.id] || []).filter(function (p) { return pt.pages.indexOf(p) > -1; });
@@ -178,14 +167,6 @@
   }
   function refreshHome() {
     var cta = $('ctaResume');
-    var rc = readCount(), pct = Math.round(rc / N * 100);
-    $('hprogTxt').textContent = 'قرأتَ ' + rc + ' من ' + N + ' صفحة (' + pct + '٪)';
-    $('hprogBar').style.width = pct + '%';
-    var best = null, bestR = 0;
-    X.paths.forEach(function (pt) { var pr = pathProgress(pt); if (pr.done > 0 && pr.done < pr.total && pr.done / pr.total >= bestR) { best = pt; bestR = pr.done / pr.total; } });
-    var hp = $('hprogPath');
-    if (best) { var bp = pathProgress(best); hp.hidden = false; hp.href = '#/p/' + bp.next + '/' + best.id; hp.textContent = '📍 أكمل مسار «' + best.title + '» — أنجزتَ ' + bp.done + ' من ' + bp.total; }
-    else hp.hidden = true;
     if (lastPage > 1) { cta.href = '#/p/' + lastPage; cta.textContent = 'تابع القراءة — الصفحة ' + lastPage; }
     else { cta.href = '#/p/1'; cta.textContent = 'ابدأ القراءة'; }
     var sr = $('stripResume');
@@ -326,7 +307,7 @@
 
   /* ───────── المعرض ───────── */
   function tileHTML(p) {
-    return '<a class="tile' + (isFav(p) ? ' isfav' : '') + (notes[p] ? ' hasnote' : '') + (readSet[p] ? ' seen' : '') + '" data-p="' + p + '" data-series="' + SERIES_NO(p) + '" href="#/p/' + p + '"><span class="star"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9L3.5 9.7l5.9-.8z"/></svg></span>' +
+    return '<a class="tile' + (isFav(p) ? ' isfav' : '') + (notes[p] ? ' hasnote' : '') + (readSet[p] ? ' seen' : '') + '" data-p="' + p + '" href="#/p/' + p + '"><span class="star"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9L3.5 9.7l5.9-.8z"/></svg></span>' +
       '<div class="th"><img loading="lazy" decoding="async" src="' + thumbSrc(p) + '" alt=""></div><div class="cap"><b>ص ' + p + '</b>' + esc(INFO[p].t) + '</div></a>';
   }
   var galFilter = 'all';
@@ -715,17 +696,12 @@
     var pending = list.length, fired = false;
     function fire() { if (fired) return; fired = true; closePack(); setTimeout(function () { window.print(); }, 150); }
     $('packGo').textContent = 'جارٍ التحضير…'; $('packGo').disabled = true;
-    var dateStr = new Date().toLocaleDateString('ar-DZ', { year: 'numeric', month: 'long', day: 'numeric' });
-    list.forEach(function (p, idx) {
+    list.forEach(function (p) {
       var w = document.createElement('div'); w.className = 'pp';
-      var hd = document.createElement('div'); hd.className = 'pp-h';
-      hd.innerHTML = '<img src="assets/logo.png" alt=""><b>موسوعة ديوان قطاع الشباب والرياضة للإنفوغرافيك المهني</b><small>' + dateStr + '</small>';
-      var ft = document.createElement('div'); ft.className = 'pp-f';
-      ft.innerHTML = '<span>ص ' + p + ' — ' + esc(INFO[p].t) + '</span><span>' + (idx + 1) + ' / ' + list.length + '</span>';
       var im = new Image(); im.alt = INFO[p].t;
       var done = function () { pending--; if (pending <= 0) { $('packGo').textContent = 'طباعة / حفظ PDF'; packSum(); fire(); } };
       im.onload = done; im.onerror = done; im.src = bestSrc(p);
-      w.appendChild(hd); w.appendChild(im); w.appendChild(ft); sheet.appendChild(w);
+      w.appendChild(im); sheet.appendChild(w);
     });
     setTimeout(function () { $('packGo').textContent = 'طباعة / حفظ PDF'; if (!fired) fire(); }, 20000);
   };
@@ -850,43 +826,10 @@
   $('help').addEventListener('click', function (e) { if (e.target === this) this.hidden = true; });
 
   /* حول */
-  /* ───────── سجل التحديثات ───────── */
-  var CHANGELOG = [
-    { d: '28 سبتمبر 2026', items: [
-      'أدلة «متى أستعملها؟» لكل صفحات المحتوى (239 من 281، والباقي أغلفة فاصلة).',
-      'خريطة ذهنية أوضح: أسماء غير متراكبة وخط أكبر ومساحة رسم أوسع.',
-      'صفحتا «الأسئلة الشائعة» و«سجل التحديثات».',
-      'الرئيسية: شريط تقدّم القراءة، وزر صفحة عشوائية، وبطاقة «أكمل مسارك».',
-      'وضع «القراءة المريحة»، وترويسة رسمية عند الطباعة، وطباعة نموذج فارغ لكل أداة.',
-      'مؤشرات تحميل للصور، وألوان مميّزة للسلاسل الأربع، وحفظ موضع التمرير عند العودة من القارئ.'
-    ] },
-    { d: '27 سبتمبر 2026', items: [
-      'علامة ✓ على الصفحات المقروءة وعدّاد «صفحة قرأتها».',
-      'الصفحات ذات الصلة كشبكة صور مع شارة عددية.',
-      'حفظ آخر نتيجة لكل اختبار، واقتراحات القاموس عند غياب نتائج البحث.',
-      'نقطة «جديد» على أيقونة حول الموسوعة.'
-    ] },
-    { d: '26 سبتمبر 2026', items: [
-      'التوقيع ورابط مجموعة الديوان على فيسبوك في «حول الموسوعة» والصفحة الترحيبية.',
-      'أزرار التنقّل السريع إلى أعلى الصفحة وأسفلها.',
-      'زر إعادة عرض الصفحة الترحيبية.'
-    ] }
-  ];
-  function showChangelog() {
-    $('changelogList').innerHTML = CHANGELOG.map(function (c) {
-      return '<section class="cl-entry"><h2>' + esc(c.d) + '</h2><ul>' + c.items.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul></section>';
-    }).join('');
-  }
-  function renderWhatsNew() {
-    var c = CHANGELOG[0];
-    $('whatsNew').innerHTML = '<h2>🆕 ما الجديد</h2><p class="wn-date">' + esc(c.d) + '</p><ul>' + c.items.slice(0, 4).map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul><a href="#/changelog">عرض سجل التحديثات الكامل</a>';
-  }
-
   function showAbout() {
     var totalInf = 0; for (var p = 1; p <= N; p++) if (!INFO[p].k && INFO[p].n) totalInf++;
     var stats = [[N, 'صفحة'], [4, 'سلاسل'], [X.tags.length, 'موضوعاً'], [X.paths.length, 'مسارات للقراءة'], [readCount(), 'صفحة قرأتها']];
     $('aboutStats').innerHTML = stats.map(function (s) { return '<div><b>' + s[0] + '</b><span>' + s[1] + '</span></div>'; }).join('');
-    renderWhatsNew();
     if ($('aboutDot')) { $('aboutDot').hidden = true; store.set('about_new_v6', 1); }
   }
 
@@ -1082,43 +1025,6 @@
     w.document.close(); w.focus(); setTimeout(function () { w.print(); }, 300);
   };
 
-  function toolBlankHTML(tool) {
-    var box = function (h) { return '<div class="bx" style="height:' + h + 'mm"></div>'; };
-    var body = tool.sections.map(function (sec) {
-      var h = '<div class="sec"><h3>' + esc(sec.label) + '</h3>';
-      if (sec.type === 'text') h += box(Math.max(10, sec.rows * 9));
-      else if (sec.type === 'table') {
-        h += '<table><thead><tr>' + sec.cols.map(function (c) { return '<th>' + esc(c.h) + '</th>'; }).join('') + '</tr></thead><tbody>';
-        for (var i = 0; i < (sec.minRows || 3) + 2; i++) h += '<tr>' + sec.cols.map(function () { return '<td></td>'; }).join('') + '</tr>';
-        h += '</tbody></table>';
-      } else if (sec.type === 'gantt') {
-        h += '<table class="g"><thead><tr><th>النشاط</th><th>المسؤول</th>' + Array.from({ length: sec.weeks }, function (_, i) { return '<th>' + (i + 1) + '</th>'; }).join('') + '</tr></thead><tbody>';
-        for (var j = 0; j < (sec.minRows || 5) + 3; j++) h += '<tr><td></td><td></td>' + Array.from({ length: sec.weeks }, function () { return '<td></td>'; }).join('') + '</tr>';
-        h += '</tbody></table>';
-      } else if (sec.type === 'grid') {
-        h += '<table><thead><tr><th></th>' + sec.colsHead.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>' +
-          sec.rowsHead.map(function (r) { return '<tr><th class="rh">' + esc(r) + '</th>' + sec.colsHead.map(function () { return '<td class="tall"></td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>';
-      }
-      return h + '</div>';
-    }).join('');
-    var date = new Date().toLocaleDateString('ar-DZ', { year: 'numeric', month: 'long', day: 'numeric' });
-    return '<html dir="rtl" lang="ar"><head><meta charset="utf-8"><title>' + esc(tool.title) + ' — نموذج فارغ</title><style>' +
-      '@page{size:A4;margin:12mm}body{font-family:Tahoma,Arial,sans-serif;font-size:12px;color:#111}' +
-      '.hd{display:flex;align-items:center;gap:10px;border-bottom:2px solid #b98a2b;padding-bottom:8px;margin-bottom:10px}.hd img{width:44px;height:44px}.hd b{flex:1;font-size:13px}.hd small{color:#555}' +
-      'h1{font-size:18px;margin:6px 0 4px}.meta{margin:0 0 12px;color:#333}h3{font-size:13px;margin:12px 0 4px}' +
-      '.bx{border:1px solid #777;border-radius:3px}table{width:100%;border-collapse:collapse;table-layout:fixed}th,td{border:1px solid #777;padding:4px;height:9mm;font-size:11px}th{background:#efefef}.rh{width:20%;background:#f6f0e0}td.tall{height:26mm}.g th,.g td{padding:2px;font-size:9px}.g th:nth-child(-n+2){width:16%}' +
-      '.ft{margin-top:14px;border-top:1px solid #999;padding-top:4px;font-size:10px;color:#555;display:flex;justify-content:space-between}</style></head><body>' +
-      '<div class="hd"><img src="assets/logo.png" alt=""><b>موسوعة ديوان قطاع الشباب والرياضة للإنفوغرافيك المهني</b><small>' + date + '</small></div>' +
-      '<h1>' + esc(tool.title) + '</h1><p class="meta">المؤسسة: ______________________ &nbsp; المسؤول: ______________________ &nbsp; التاريخ: ____________</p>' + body +
-      '<div class="ft"><span>مبني على صفحة ' + tool.page + ' من الموسوعة</span><span>نموذج فارغ للتعبئة اليدوية</span></div></body></html>';
-  }
-  $('toolBlank').onclick = function () {
-    if (!curTool) return;
-    var w = window.open('', '_blank'); if (!w) { toast('فعّل النوافذ المنبثقة للطباعة'); return; }
-    w.document.write(toolBlankHTML(curTool));
-    w.document.close(); w.focus(); setTimeout(function () { w.print(); }, 500);
-  };
-
   /* ═════════════ القاموس ═════════════ */
   function glossHTML(list) {
     return list.map(function (g) {
@@ -1289,24 +1195,15 @@
   if (!store.get('onb_seen', 0)) { onbIdx = 0; renderOnb(); $('onb').hidden = false; }
   var btnReplayOnb = $('btnReplayOnb');
   if (btnReplayOnb) btnReplayOnb.onclick = function () { onbIdx = 0; renderOnb(); $('onb').hidden = false; };
-  $('btnRandom').onclick = function () {
-    var pool = [];
-    for (var p = 1; p <= N; p++) if (!INFO[p].k && !readSet[p]) pool.push(p);
-    if (!pool.length) { toast('أتممتَ قراءة كل الصفحات، أحسنت!'); return; }
-    location.hash = '#/p/' + pool[Math.floor(Math.random() * pool.length)];
-  };
 
   /* ═════════════ التوجيه ═════════════ */
   var currentView = 'home';
-  var views = { home: $('view-home'), toc: $('view-toc'), paths: $('view-paths'), map: $('view-map'), tools: $('view-tools'), tool: $('view-tool'), glossary: $('view-glossary'), training: $('view-training'), gallery: $('view-gallery'), mine: $('view-mine'), about: $('view-about'), faq: $('view-faq'), changelog: $('view-changelog') };
+  var views = { home: $('view-home'), toc: $('view-toc'), paths: $('view-paths'), map: $('view-map'), tools: $('view-tools'), tool: $('view-tool'), glossary: $('view-glossary'), training: $('view-training'), gallery: $('view-gallery'), mine: $('view-mine'), about: $('view-about') };
   function setNav(n) {
     [].forEach.call(document.querySelectorAll('.tabs a'), function (a) { a.classList.toggle('on', a.dataset.nav === n); });
   }
-  var scrollMem = {}, prevKey = null;
   function route() {
     var h = location.hash || '#/';
-    if (!reader.open && prevKey) scrollMem[prevKey] = window.scrollY;
-    var fromReader = reader.open;
     var m = h.match(/^#\/p\/(\d+)(?:\/([a-z0-9-]+))?/);
     if (m) {
       var p = clamp(parseInt(m[1], 10), 1, N), extra = m[2] || '';
@@ -1324,8 +1221,8 @@
     if (!views[v]) v = 'home';
     currentView = v;
     Object.keys(views).forEach(function (k) { views[k].hidden = k !== v; });
-    setNav(v === 'about' || v === 'faq' || v === 'changelog' ? '' : (v === 'tool' ? 'tools' : v));
-    if (v !== 'about' && v !== 'faq' && v !== 'changelog') ssSet('from', '#/' + (v === 'home' ? '' : parts.join('/')));
+    setNav(v === 'about' ? '' : (v === 'tool' ? 'tools' : v));
+    if (v !== 'about') ssSet('from', '#/' + (v === 'home' ? '' : parts.join('/')));
     if (v === 'home') { refreshHome(); window.scrollTo(0, 0); }
     if (v === 'toc') { showToc(parts[1]); if (parts[1] === undefined) window.scrollTo(0, 0); }
     if (v === 'paths') { showPaths(); window.scrollTo(0, 0); }
@@ -1337,10 +1234,6 @@
     if (v === 'glossary') { showGlossary(); window.scrollTo(0, 0); }
     if (v === 'training') { showTraining(parts[1] || 'sessions'); window.scrollTo(0, 0); }
     if (v === 'map') { buildMindmap(); window.scrollTo(0, 0); }
-    if (v === 'faq') { window.scrollTo(0, 0); }
-    if (v === 'changelog') { showChangelog(); window.scrollTo(0, 0); }
-    prevKey = h;
-    if (fromReader && scrollMem[h]) { var sy = scrollMem[h]; window.scrollTo(0, sy); setTimeout(function () { window.scrollTo(0, sy); }, 80); }
     setBnav(v);
   }
   window.addEventListener('hashchange', route);

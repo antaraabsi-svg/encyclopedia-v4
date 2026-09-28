@@ -34,7 +34,6 @@
   </nav>
   <div class="top-tools">
     <button class="ico" id="btnFont" title="حجم الخط" aria-label="تغيير حجم الخط"><span class="aa">Aأ</span></button>
-    <button class="ico" id="btnComfort" title="القراءة المريحة" aria-label="القراءة المريحة" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
     <button class="ico" id="btnPack" title="طباعة أو تصدير صفحات (PDF)" aria-label="طباعة أو تصدير صفحات">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V4h10v5M7 17H5v-6h14v6h-2M7 14h10v6H7z"/></svg>
     </button>
@@ -73,12 +72,6 @@
     </div>
 
     <div class="wrap">
-      <div class="hprog" id="hprog">
-        <div class="hprog-top"><b id="hprogTxt"></b><button type="button" class="btn" id="btnRandom">🎲 صفحة عشوائية لم أقرأها</button></div>
-        <i class="pb-bar big"><u id="hprogBar" style="width:0"></u></i>
-        <a class="hprog-path" id="hprogPath" href="#/paths" hidden></a>
-      </div>
-
       <a class="potd" id="potd" href="#/p/1">
         <img id="potdImg" loading="lazy" src="thumbs/001.jpg" alt="">
         <div class="potd-b"><span class="potd-tag">صفحة اليوم</span><b id="potdTitle"></b><small id="potdSub"></small></div>
@@ -194,33 +187,6 @@
     </div>
   </section>
 
-  <!-- ═════════ الأسئلة الشائعة ═════════ -->
-  <section id="view-faq" class="view" hidden>
-    <div class="wrap narrow faq">
-      <div class="page-h"><h1>الأسئلة الشائعة</h1><p>إجابات سريعة عن طريقة استعمال البرنامج.</p></div>
-      <details open><summary>كيف أبدأ باستخدام البرنامج لأول مرة؟</summary><p>تفتح الموسوعة على الصفحة الرئيسية، ومنها اضغط «ابدأ القراءة» أو اختر مساراً حسب دورك من «المسارات». يمكنك إعادة عرض الصفحة الترحيبية في أي وقت من «حول الموسوعة».</p></details>
-      <details><summary>هل يعمل البرنامج دون إنترنت؟</summary><p>نعم، يعمل مباشرة من الملف <b>index.html</b> دون اتصال. ولحفظ كل الصفحات على جهازك بعد النشر على موقع، استعمل زر «حفظ الصفحات للاستخدام دون إنترنت» في «حول الموسوعة».</p></details>
-      <details><summary>كيف أضيف صفحة إلى المفضلة أو أكتب عليها ملاحظة؟</summary><p>من داخل القارئ اضغط أيقونة النجمة للمفضلة أو أيقونة المفكرة لكتابة ملاحظة (أو الاختصاران <kbd>B</kbd> و<kbd>N</kbd>). تجد كل ذلك لاحقاً في «مكتبتي».</p></details>
-      <details><summary>أين تُحفظ مفضلتي وملاحظاتي؟ وهل يراها غيري؟</summary><p>تُحفظ على جهازك ومتصفحك فقط ولا تُرسل إلى أي خادم، فلا يراها أحد غيرك. لكنها تُفقد إذا مسحتَ بيانات المتصفح، لذلك ننصح بأخذ نسخة احتياطية.</p></details>
-      <details><summary>كيف أنقل مفضلتي وملاحظاتي إلى جهاز آخر؟</summary><p>من «مكتبتي» اضغط «تصدير نسخة احتياطية» لحفظ ملف صغير، ثم افتح البرنامج على الجهاز الآخر واختر «استيراد» وحدّد الملف.</p></details>
-      <details><summary>كيف أتابع تقدّمي في القراءة؟</summary><p>كل صفحة تفتحها تُعلَّم تلقائياً بعلامة ✓ في الفهرس والمعرض، وتجد نسبة تقدمك على الصفحة الرئيسية وعدد الصفحات المقروءة في «حول الموسوعة».</p></details>
-      <details><summary>كيف أطبع صفحات محددة أو أحفظها PDF؟</summary><p>اضغط أيقونة الطابعة في الشريط العلوي، ثم حدّد صفحات مثل «20-31, 45» وأرسلها للطباعة أو احفظها ملف PDF لتوزيعها في ورشة أو اجتماع.</p></details>
-      <details><summary>كيف أستعمل الأدوات التفاعلية (SWOT وغيرها)؟</summary><p>من «الأدوات» اختر أداة واملأها مباشرة، فتُحفظ مسودتك تلقائياً على جهازك. يمكنك طباعتها أو تصديرها نصاً، أو طباعة نموذج فارغ منها لتعبئته على الورق.</p></details>
-      <details><summary>لماذا لا تظهر الصفحة الترحيبية في كل مرة؟</summary><p>تظهر تلقائياً في أول فتح فقط. لإعادة عرضها اضغط «إعادة عرض الصفحة الترحيبية» في «حول الموسوعة».</p></details>
-      <details><summary>كيف أثبّت الموسوعة كتطبيق على هاتفي أو حاسوبي؟</summary><p>إن كانت منشورة على موقع، افتحها في المتصفح واختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية» من قائمة المتصفح.</p></details>
-      <details><summary>كيف أبحث عن موضوع بسرعة؟</summary><p>استعمل مربع البحث في «الفهرس» (بالعنوان أو الموضوع أو رقم الصفحة)، أو تصفّح حسب الموضوع من الرئيسية، أو افتح «الخريطة» الذهنية للنظر إلى السلاسل ومحاورها دفعة واحدة.</p></details>
-      <details><summary>الخط صغير أو النص صعب القراءة، ماذا أفعل؟</summary><p>اضغط أيقونة <b>Aأ</b> في الشريط العلوي لتكبير الخط، وأيقونة «القراءة المريحة» لرفع التباين وتوسيع تباعد الأسطر.</p></details>
-    </div>
-  </section>
-
-  <!-- ═════════ سجل التحديثات ═════════ -->
-  <section id="view-changelog" class="view" hidden>
-    <div class="wrap narrow">
-      <div class="page-h"><h1>سجل التحديثات</h1><p>كل ما أُضيف إلى البرنامج، من الأحدث إلى الأقدم.</p></div>
-      <div id="changelogList" class="changelog"></div>
-    </div>
-  </section>
-
   <!-- ═════════ حول الموسوعة ═════════ -->
   <section id="view-about" class="view" hidden>
     <div class="wrap narrow about">
@@ -236,8 +202,6 @@
         <svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:-3px;margin-inline-end:6px" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
         إعادة عرض الصفحة الترحيبية
       </button>
-      <a class="btn" href="#/faq" style="margin:4px 8px 22px 0">الأسئلة الشائعة</a>
-      <div class="whatsnew" id="whatsNew"></div>
       <h2>ما هذه الموسوعة؟</h2>
       <p>مرجع بصري مهني لتطوير الممارسة داخل مؤسسات الشباب والتنشيط الاجتماعي التربوي، في أربع سلاسل: الإطار القانوني والتنظيمي، والبرنامج التربوي وهندسة المشاريع، والنوادي التربوية، والتنشيط الاجتماعي التربوي.</p>
       <h2>كيف أستفيد منها؟</h2>
@@ -300,7 +264,6 @@
       <div id="toolForm" class="tool-form"></div>
       <div class="tool-acts">
         <button class="btn primary" id="toolPrint">طباعة / حفظ PDF</button>
-        <button class="btn" id="toolBlank">طباعة نموذج فارغ</button>
         <button class="btn" id="toolExport">تصدير نصي</button>
         <button class="link danger" id="toolClear">مسح كل الحقول</button>
         <span class="pack-sum" id="toolSaved"></span>
