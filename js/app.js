@@ -1181,16 +1181,31 @@
   $('quizModal').addEventListener('click', function (e) { if (e.target === this) { this.hidden = true; qzState = null; } });
 
   function buildLegal() {
-    $('paneLegal').innerHTML = '<p class="legal-note">مراجع مُدقَّقة مقابل نصوص الجريدة الرسمية الفعلية، ومنظَّمة حسب الموضوع الذي تتناوله كل مجموعة صفحات. عادة ما تُشير صفحات الموسوعة إلى القانون كمرجع عام للموضوع المعالج لا كاقتباس حرفي دقيق لمادة بعينها؛ حيث كان الأمر كذلك، أضفنا توضيحاً بالمادة الدقيقة إلى جانب الإشارة العامة.</p><div class="legal-list">' +
+    $('paneLegal').innerHTML = '<p class="legal-note">مراجع مُدقَّقة مقابل نصوص الجريدة الرسمية الفعلية، ومنظَّمة حسب الموضوع الذي تتناوله كل مجموعة صفحات. عادة ما تُشير صفحات الموسوعة إلى القانون كمرجع عام للموضوع المعالج لا كاقتباس حرفي دقيق لمادة بعينها؛ حيث كان الأمر كذلك، أضفنا توضيحاً بالمادة الدقيقة إلى جانب الإشارة العامة. اضغط أي صورة أدناه لعرض المصدر الأصلي كاملاً.</p><div class="legal-list">' +
       LEGAL.map(function (l) {
+        var srcs = (l.sources || []).map(function (s) {
+          return '<a class="lg-src" href="#" data-img="' + esc(s.img) + '" data-cap="' + esc(s.cap) + '"><img src="' + s.img + '" alt="' + esc(s.cap) + '" loading="lazy"><span>' + esc(s.cap) + '</span></a>';
+        }).join('');
         return '<div class="legal-item"><h3>' + esc(l.topic) + '</h3>' +
           '<div class="gl-refs">' + l.pages.map(function (p) { return '<a href="#/p/' + p + '">ص ' + p + '</a>'; }).join('') + '</div>' +
           '<ul>' + l.refs.map(function (r) {
             return '<li><b>' + esc(r.law) + ' — ' + esc(r.article) + '</b><br>' + esc(r.text) +
               (r.note ? '<div class="lg-note">ℹ️ ' + esc(r.note) + '</div>' : '') + '</li>';
-          }).join('') + '</ul></div>';
+          }).join('') + '</ul>' +
+          (srcs ? '<div class="lg-src-h">📄 المصدر الأصلي (الجريدة الرسمية)</div><div class="lg-srcs">' + srcs + '</div>' : '') +
+          '</div>';
       }).join('') + '</div>';
   }
+  $('paneLegal').addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('.lg-src');
+    if (!a) return;
+    e.preventDefault();
+    $('legalImgFull').src = a.dataset.img;
+    $('legalImgCap').textContent = a.dataset.cap;
+    $('legalImgModal').hidden = false;
+  });
+  $('legalImgClose').onclick = function () { $('legalImgModal').hidden = true; };
+  $('legalImgModal').addEventListener('click', function (e) { if (e.target === this) this.hidden = true; });
 
   /* ═════════════ وضع العرض للتكوين ═════════════ */
   $('bPresent').onclick = function () { togglePresenter(); };

@@ -829,3 +829,16 @@ html[data-comfort="1"] p,html[data-comfort="1"] li,html[data-comfort="1"] dd{lin
   #printSheet .pp-f { display: flex; justify-content: space-between; border-top: 1px solid #999; margin-top: 3mm; padding-top: 2mm; font-size: 9pt; color: #444; }
   #printSheet .pp > img { max-height: 246mm; }
 }
+
+/* صور المصادر الأصلية في المراجع القانونية */
+.lg-src-h{font-weight:700;color:var(--head);margin-top:6px;font-size:.9rem}
+.lg-srcs{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.lg-src{width:120px;text-decoration:none;color:var(--muted);font-size:.72rem;text-align:center;display:flex;flex-direction:column;gap:4px}
+.lg-src img{width:120px;height:150px;object-fit:cover;object-position:top;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);background:var(--surface-2)}
+.lg-src:hover img{outline:2px solid var(--gold)}
+.lg-src span{line-height:1.4}
+
+.legalimg-card{width:min(760px,94vw);padding:0}
+.legalimg-body{max-height:78vh;overflow:auto;background:var(--surface-2);display:flex;justify-content:center;padding:10px}
+.legalimg-body img{max-width:100%;height:auto;border-radius:4px}
+.legalimg-note{margin:0;padding:10px 20px 16px;color:var(--muted);font-size:.8rem;text-align:center}
